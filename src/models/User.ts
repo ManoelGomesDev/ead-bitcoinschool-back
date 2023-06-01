@@ -21,6 +21,8 @@ export interface UserCreationAttributes
 export interface UserInstance
     extends Model<User, UserCreationAttributes>, User { }
 
+
+
 export const User = sequelize.define<UserInstance, User>('users', {
     id: {
         allowNull: false,
@@ -60,13 +62,13 @@ export const User = sequelize.define<UserInstance, User>('users', {
         allowNull: false,
         type: DataTypes.STRING
     }
-    },{
-        hooks: {
-          beforeSave: async (user) => {
+}, {
+    hooks: {
+        beforeSave: async (user) => {
             if (user.isNewRecord || user.changed('password')) {
-              user.password = await bcrypt.hash(user.password.toString(), 10);
+                user.password = await bcrypt.hash(user.password.toString(), 10);
             }
-          }
         }
-    
+    }
+
 })

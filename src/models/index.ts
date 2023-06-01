@@ -10,6 +10,10 @@ Course.hasMany(Episode)
 
 Episode.belongsTo(Course)
 
+Category.hasMany(Course, { as: 'courses' })
+Course.hasMany(Episode, { as: 'episodes' })
+
+
 
 export {
     Course,
